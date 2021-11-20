@@ -1,0 +1,133 @@
+version: '3.7'
+services:
+  proxy:
+    restart: unless-stopped
+    image: nginx:1.18
+    container_name: proxy
+    volumes:
+      - ./proxy/default.conf:/etc/nginx/conf.d/default.conf
+      - ./proxy/website.pem:/etc/ssl/website.pem
+      - ./proxy/website.key:/etc/ssl/website.key
+      - ./proxy/nginx:/var/log/nginx
+    networks:
+      - frontend1
+      - frontend2
+    stop_grace_period: 3m
+    ports:
+      - '443:443'
+    depends_on:
+      - app1
+      - app2
+  app1:
+    restart: unless-stopped
+    build: ./app1
+    container_name: app1
+    env_file:
+      - ./app1/.env
+    volumes:
+      - ./app1:/app
+    depends_on:
+      - db1
+      - redis1
+    networks:
+      - frontend1
+      - backend1
+    stop_grace_period: 3m
+    command: gunicorn --worker-tmp-dir /dev/shm --chdir /app app:create_app() -b :5000 --timeout 60 -w 4
+    user: 1000:985
+  db1:
+    restart: unless-stopped
+    image: postgres:11
+    container_name: db1
+    volumes:
+      - db1-data:/var/lib/postgresql/data
+    networks:
+      - backend1
+    stop_grace_period: 3m
+  redis1:
+    restart: unless-stopped
+    image: redis:5
+    container_name: redis1
+    volumes:
+      - redis1-data:/data
+    networks:
+      - backend1
+    stop_grace_period: 3m
+  celery1:
+    restart: unless-stopped
+    build: ./app1
+    container_name: celery1
+    env_file:
+      - ./app1/.env
+    volumes:
+      - ./app1:/app
+    depends_on:
+      - db1
+      - redis1
+    networks:
+      - backend1
+    stop_grace_period: 3m
+    command: celery worker -l info -A tasks -B
+    user: 1000:985
+  app2:
+    restart: unless-stopped
+    build: ./app2
+    container_name: app2
+    env_file:
+      - ./app2/.env
+    volumes:
+      - ./app2:/app
+    depends_on:
+      - db2
+    networks:
+      - frontend2
+      - backend2
+    stop_grace_period: 3m
+    expose:
+      - "5000"
+    command: gunicorn --worker-tmp-dir /dev/shm --chdir /app app:create_app() -b :5000 --timeout 60 -w 4
+    user: 1000:985
+  db2:
+    restart: unless-stopped
+    image: postgres:11
+    container_name: db2
+    volumes:
+      - db2-data:/var/lib/postgresql/data
+    networks:
+      - backend2
+    stop_grace_period: 3m
+  redis2:
+    restart: unless-stopped
+    image: redis:5
+    container_name: redis2
+    volumes:
+      - redis2-data:/data
+    networks:
+      - backend2
+    stop_grace_period: 3m
+  celery2:
+    restart: unless-stopped
+    build: ./app2
+    container_name: celery2
+    env_file:
+      - ./app2/.env
+    volumes:
+      - ./app2:/app
+    depends_on:
+      - db2
+      - redis2
+    networks:
+      - backend2
+    stop_grace_period: 3m
+    command: celery worker -l info -A tasks -B
+    user: 1000:985
+volumes:
+  db1-data:
+  redis1-data:
+  db2-data:
+  redis2-data:
+networks:
+  frontend1:
+  backend1:
+  frontend2:
+  backend2:
