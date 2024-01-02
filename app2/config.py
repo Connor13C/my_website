@@ -1,0 +1,13 @@
+import datetime
+DEBUG = False
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@db2:5432'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+PROPAGATE_EXCEPTIONS = True
+JWT_TOKEN_LOCATION = ['cookies']
+JWT_COOKIE_SECURE = True
+JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(hours=6)
+JWT_COOKIE_CSRF_PROTECT = True
+JWT_CSRF_IN_COOKIES = False
+JWT_COOKIE_SAMESITE = 'Lax'
+CELERY_BROKER_URL = 'redis://redis2:6379'
+CELERY_RESULT_BACKEND = 'redis://redis2:6379'
