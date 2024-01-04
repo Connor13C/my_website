@@ -7,6 +7,8 @@ To run:
 * Install Docker - choices:
    * [From documents](https://docs.docker.com/install/)
    * [From bash script](https://get.docker.com)
+     * $ curl -fsSL https://get.docker.com -o install-docker.sh 
+     * $ sudo sh install-docker.sh
 * Change proxy/default.conf file lines containing {} to your own website setup
 * Change proxy/website.csr to contain your website csr
 * Change proxy/website.key to contain your private key
