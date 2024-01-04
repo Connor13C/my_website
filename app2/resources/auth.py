@@ -1,7 +1,5 @@
 """
 This module mocks an interaction with an OAuth2 Authorization Server.
-You should not need to change anything in this module,
-but if you do please note it in the README
 """
 
 
