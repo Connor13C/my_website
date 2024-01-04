@@ -1,5 +1,4 @@
 import os
-import secrets
 from flask import Flask, jsonify
 from flask_restful import Api
 from flask import Flask
@@ -26,10 +25,9 @@ def create_app():
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1, x_prefix=1)
     app.config.from_object("config")
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
-    app.config["SECRET_KEY"] = str(secrets.token_hex())
+    # app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
     api = Api(app)
-    jwt = JWTManager(app)
+    # jwt = JWTManager(app)
 
     @app.errorhandler(ValidationError)
     def handle_marshmallow_validation(err):
@@ -42,13 +40,13 @@ def create_app():
     app.jinja_env.trim_blocks = True
     app.jinja_env.lstrip_blocks = True
 
-    @jwt.user_claims_loader
-    def add_claims_to_access_token(user):
-        return user.roles
-
-    @jwt.user_identity_loader
-    def user_identity_lookup(user):
-        return {'name': user.name, 'email': user.email, 'ip': user.ip}
+    # @jwt.user_claims_loader
+    # def add_claims_to_access_token(user):
+    #     return user.roles
+    #
+    # @jwt.user_identity_loader
+    # def user_identity_lookup(user):
+    #     return {'name': user.name, 'email': user.email, 'ip': user.ip}
 
     api.add_resource(Example, '/', endpoint='homepage')
     api.add_resource(Projects, '/projects', endpoint='projects')
