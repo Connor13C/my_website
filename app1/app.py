@@ -14,17 +14,8 @@ from app2.resources.endpoints import (
     Example,
     Projects,
     Project,
-    Comments
-)
-from resources.auth import (
-    UserRegister,
-    User,
-    UserLogin,
-    UserLogout,
-    TokenRefresh,
-    OAuthServerLogin,
-    OAuthServerAuthorize
-)
+    Comments)
+from resources.auth import OAuthServerLogin, OAuthServerAuthorize
 
 
 def create_app():
@@ -37,35 +28,6 @@ def create_app():
     # app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
     api = Api(app)
     # jwt = JWTManager(app)
-    # @jwt.user_claims_loader
-    # def add_claims_to_jwt(identity):
-    #     if identity == 1:
-    #         return {'is_admin': True}
-    #     return {'is_admin': False}
-    #
-    # @jwt.token_in_blacklist_loader
-    # def check_if_token_in_blacklist(decrypted_token):
-    #     return decrypted_token['jti'] in BLACKLIST
-    #
-    # @jwt.expired_token_loader
-    # def expired_token_callback():
-    #     return jsonify({'description': 'The token has expired.', 'error': 'token_expired'}), 401
-    #
-    # @jwt.invalid_token_loader
-    # def invalid_token_callback(error):
-    #     return jsonify({'description': 'Signature verification failed.', 'error': 'invalid_token'}), 401
-    #
-    # @jwt.unauthorized_loader
-    # def missing_token_callback(error):
-    #     return jsonify({'description': 'Request does not contain an access token.', 'error': 'authorization_required'}), 401
-    #
-    # @jwt.needs_fresh_token_loader
-    # def token_not_fresh_callback():
-    #     return jsonify({'description': 'The token is not fresh.', 'error': 'fresh_token_required'}), 401
-    #
-    # @jwt.revoked_token_loader
-    # def revoked_token_callback():
-    #     return jsonify({'description': 'The token has been revoked.', 'error': 'token_revoked'}), 401
 
     @app.errorhandler(ValidationError)
     def handle_marshmallow_validation(err):
@@ -90,11 +52,6 @@ def create_app():
     api.add_resource(Projects, '/projects', endpoint='projects')
     api.add_resource(Project, '/projects/<project_id>', endpoint='projects.id')
     api.add_resource(Comments, '/projects/<project_id>/comments', endpoint='projects.comments')
-    api.add_resource(UserRegister, '/register')
-    api.add_resource(User, '/user/<int:user_id>')
-    api.add_resource(UserLogin, '/login')
-    api.add_resource(TokenRefresh, '/refresh')
-    api.add_resource(UserLogout, '/logout')
 
     db.init_app(app)
     ma.init_app(app)
