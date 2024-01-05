@@ -14,8 +14,17 @@ from app2.resources.endpoints import (
     Example,
     Projects,
     Project,
-    Comments)
-from resources.auth import OAuthServerLogin, OAuthServerAuthorize
+    Comments
+)
+from resources.auth import (
+    UserRegister,
+    User,
+    UserLogin,
+    UserLogout,
+    TokenRefresh,
+    OAuthServerLogin,
+    OAuthServerAuthorize
+)
 
 
 def create_app():
@@ -81,6 +90,11 @@ def create_app():
     api.add_resource(Projects, '/projects', endpoint='projects')
     api.add_resource(Project, '/projects/<project_id>', endpoint='projects.id')
     api.add_resource(Comments, '/projects/<project_id>/comments', endpoint='projects.comments')
+    api.add_resource(UserRegister, '/register')
+    api.add_resource(User, '/user/<int:user_id>')
+    api.add_resource(UserLogin, '/login')
+    api.add_resource(TokenRefresh, '/refresh')
+    api.add_resource(UserLogout, '/logout')
 
     db.init_app(app)
     ma.init_app(app)
