@@ -9,7 +9,6 @@ To run:
    * [From bash script](https://get.docker.com)
      * $ curl -fsSL https://get.docker.com -o install-docker.sh 
      * $ sudo sh install-docker.sh
-* Change proxy/default.conf file lines containing {} to your own website setup
 * For https: 
   * Comment out or remove current active server listen 80
   * Uncomment server listen 80 redirect
@@ -17,6 +16,7 @@ To run:
   * Change proxy/website.csr to contain your website csr
   * Change proxy/website.key to contain your private key
   * Change proxy/website.pem to contain your website certificate chain
+* Change proxy/default.conf file lines containing {} to your own website setup
 * Run Containers:
    * sudo docker-compose up -d
 * Stop Containers:
