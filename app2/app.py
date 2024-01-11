@@ -17,8 +17,7 @@ from resources.auth import (
     UserRegister,
     User,
     UserLogin,
-    UserLogout,
-    TokenRefresh
+    UserLogout
 )
 
 
@@ -62,9 +61,6 @@ def create_app():
     # def revoked_token_callback():
     #     return jsonify({'description': 'The token has been revoked.', 'error': 'token_revoked'}), 401
 
-    with app.app_context():
-        db.create_all()
-
     app.jinja_env.trim_blocks = True
     app.jinja_env.lstrip_blocks = True
 
@@ -83,10 +79,12 @@ def create_app():
     api.add_resource(UserRegister, '/register')
     api.add_resource(User, '/user/<int:user_id>')
     api.add_resource(UserLogin, '/login')
-    api.add_resource(TokenRefresh, '/refresh')
     api.add_resource(UserLogout, '/logout')
 
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
+
     return app
 
 

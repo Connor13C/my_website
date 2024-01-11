@@ -1,4 +1,4 @@
-# Server_Framework
+# Nginx Server with SAAS apps
 
 This is the server side setup and configuration to host multiple applications through an
 nginx reverse proxy server. All setup is in docker-compose.yml. Non-image docker setups have a Dockerfile in the related folder.
