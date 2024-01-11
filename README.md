@@ -9,8 +9,9 @@ To run:
    * [From bash script](https://get.docker.com)
      * $ curl -fsSL https://get.docker.com -o install-docker.sh 
      * $ sudo sh install-docker.sh
-* Run Docker Daemon
-  * sudo systemctl start docker
+* Enable Docker Daemon
+  * $ sudo systemctl enable docker
+  * $ sudo reboot now
 * For https: 
   * Comment out or remove current active server listen 80
   * Uncomment server listen 80 redirect
