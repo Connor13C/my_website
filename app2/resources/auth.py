@@ -1,4 +1,4 @@
-from werkzeug.security import safe_str_cmp
+from hmac import compare_digest
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_refresh_token_required, get_jwt_identity, jwt_required, get_raw_jwt
 from models.user import UserModel
@@ -95,3 +95,19 @@ def introspect_token(access_token):
     invalid_response = {"token_is_valid": False, "user_info": None}
 
     return token_mapping.get(access_token, invalid_response)
+
+
+def safe_str_cmp(a: str, b: str) -> bool:
+    """This function compares strings in somewhat constant time. This
+    requires that the length of at least one string is known in advance.
+
+    Returns `True` if the two strings are equal, or `False` if they are not.
+    """
+
+    if isinstance(a, str):
+        a = a.encode("utf-8")  # type: ignore
+
+    if isinstance(b, str):
+        b = b.encode("utf-8")  # type: ignore
+
+    return hmac.compare_digest(a, b)

@@ -3,19 +3,15 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask import Flask
 from flask_jwt_extended import JWTManager
-from marshmallow import ValidationError
 from werkzeug.middleware.proxy_fix import ProxyFix
 from celery import Celery
 
 from db import db
-from ma import ma
-from oa import oauth
-from app2.resources.endpoints import (
+from resources.endpoints import (
     Example,
     Projects,
     Project,
     Comments)
-from resources.auth import OAuthServerLogin, OAuthServerAuthorize
 
 
 def create_app():
@@ -29,12 +25,7 @@ def create_app():
     api = Api(app)
     # jwt = JWTManager(app)
 
-    @app.errorhandler(ValidationError)
-    def handle_marshmallow_validation(err):
-        return jsonify(err.messages), 400
-
-    @app.before_first_request
-    def create_tables():
+    with app.app_context():
         db.create_all()
 
     app.jinja_env.trim_blocks = True
@@ -54,8 +45,6 @@ def create_app():
     api.add_resource(Comments, '/projects/<project_id>/comments', endpoint='projects.comments')
 
     db.init_app(app)
-    ma.init_app(app)
-    oauth.init_app(app)
     return app
 
 
