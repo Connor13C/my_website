@@ -14,6 +14,7 @@ services:
       - frontend2
     stop_grace_period: 3m
     ports:
+      - '80:80'
       - '443:443'
     depends_on:
       - app1
@@ -84,7 +85,7 @@ services:
       - backend2
     stop_grace_period: 3m
     expose:
-      - "5000"
+      - '5000'
     command: gunicorn --worker-tmp-dir /dev/shm --chdir /app app:create_app() -b :5000 --timeout 60 -w 4
     user: 1000:1000
   db2:
