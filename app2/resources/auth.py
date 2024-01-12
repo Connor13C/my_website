@@ -1,7 +1,7 @@
 from hmac import compare_digest
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required, get_raw_jwt
-from models.user import UserModel
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required, get_jwt
+from models.db import UserModel
 from blacklist import BLACKLIST
 
 
@@ -53,7 +53,7 @@ class UserLogin(Resource):
 class UserLogout(Resource):
     @jwt_required
     def post(self):
-        jti = get_raw_jwt()['jti']
+        jti = get_jwt()['jti']
         BLACKLIST.add(jti)
         return {'message': 'User successfully logged out.'}
 
