@@ -1,6 +1,7 @@
 import datetime
+import os
 DEBUG = False
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@db1:5432'
+SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:{os.environ.get("POSTGRES_PASSWORD")}@db1:5432'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 PROPAGATE_EXCEPTIONS = True
 JWT_TOKEN_LOCATION = ['cookies']

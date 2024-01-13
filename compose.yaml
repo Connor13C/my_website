@@ -56,10 +56,10 @@ services:
     networks:
       - backend1
     stop_grace_period: 3m
-  celery1:
+  celery-worker1:
     restart: unless-stopped
     build: ./app1
-    container_name: celery1
+    container_name: celery-worker1
     env_file:
       - ./app1/.env
     volumes:
@@ -70,7 +70,38 @@ services:
     networks:
       - backend1
     stop_grace_period: 3m
-    command: celery worker -l info -A tasks -B
+    command: celery --app tasks worker --loglevel=info
+    user: 1000:1000
+  celery-beat1:
+    restart: unless-stopped
+    build: ./app1
+    container_name: celery-beat1
+    env_file:
+      - ./app1/.env
+    volumes:
+      - ./app1:/app
+    depends_on:
+      - celery-worker1
+    networks:
+      - backend1
+    stop_grace_period: 3m
+    command: celery --app tasks beat --loglevel=info
+    user: 1000:1000
+  celery-flower1:
+    restart: unless-stopped
+    build: ./app1
+    container_name: celery-flower1
+    env_file:
+      - ./app1/.env
+    volumes:
+      - ./app1:/app
+    depends_on:
+      - celery-worker1
+      - celery-beat1
+    networks:
+      - backend1
+    stop_grace_period: 3m
+    command: celery --app tasks flower
     user: 1000:1000
   app2:
     restart: unless-stopped
@@ -108,10 +139,10 @@ services:
     networks:
       - backend2
     stop_grace_period: 3m
-  celery2:
+  celery-worker2:
     restart: unless-stopped
     build: ./app2
-    container_name: celery2
+    container_name: celery-worker2
     env_file:
       - ./app2/.env
     volumes:
@@ -122,7 +153,38 @@ services:
     networks:
       - backend2
     stop_grace_period: 3m
-    command: celery worker -l info -A tasks -B
+    command: celery --app tasks worker --loglevel=info
+    user: 1000:1000
+  celery-beat2:
+    restart: unless-stopped
+    build: ./app2
+    container_name: celery-beat2
+    env_file:
+      - ./app2/.env
+    volumes:
+      - ./app2:/app
+    depends_on:
+      - celery-worker2
+    networks:
+      - backend2
+    stop_grace_period: 3m
+    command: celery --app tasks beat --loglevel=info
+    user: 1000:1000
+  celery-flower2:
+    restart: unless-stopped
+    build: ./app2
+    container_name: celery-flower2
+    env_file:
+      - ./app2/.env
+    volumes:
+      - ./app2:/app
+    depends_on:
+      - celery-worker2
+      - celery-beat2
+    networks:
+      - backend2
+    stop_grace_period: 3m
+    command: celery --app tasks flower
     user: 1000:1000
 volumes:
   db1-data:

@@ -25,9 +25,6 @@ def create_app():
     api = Api(app)
     # jwt = JWTManager(app)
 
-    with app.app_context():
-        db.create_all()
-
     app.jinja_env.trim_blocks = True
     app.jinja_env.lstrip_blocks = True
 
@@ -45,6 +42,9 @@ def create_app():
     api.add_resource(Comments, '/projects/<project_id>/comments', endpoint='projects.comments')
 
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
+
     return app
 
 
