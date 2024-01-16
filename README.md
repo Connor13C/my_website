@@ -21,8 +21,8 @@ To run:
   * Change proxy/website.pem to contain your website certificate chain
 * Change proxy/default.conf file lines containing {} to your own website setup
 * Run Containers:
-   * sudo docker-compose up -d
+   * sudo docker compose up -d
 * Stop Containers:
-   * sudo docker-compose down
+   * sudo docker compose down
 * List Volumes:
    * sudo docker volume ls

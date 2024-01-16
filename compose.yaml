@@ -12,6 +12,8 @@ services:
     networks:
       - frontend1
       - frontend2
+      - frontend3
+      - frontend4
     stop_grace_period: 3m
     ports:
       - "80:80"
@@ -100,6 +102,7 @@ services:
       - celery-beat1
     networks:
       - backend1
+      - frontend3
     stop_grace_period: 3m
     command: celery --app tasks flower
     user: 1000:1000
@@ -183,6 +186,7 @@ services:
       - celery-beat2
     networks:
       - backend2
+      - frontend4
     stop_grace_period: 3m
     command: celery --app tasks flower
     user: 1000:1000
@@ -196,3 +200,5 @@ networks:
   backend1:
   frontend2:
   backend2:
+  frontend3:
+  frontend4:
