@@ -10,6 +10,7 @@ services:
       - ./proxy/website.key:/etc/ssl/website.key
       - ./proxy/nginx:/var/log/nginx
     networks:
+      - auth-frontend
       - frontend1
       - frontend2
       - frontend3
@@ -21,6 +22,33 @@ services:
     depends_on:
       - app1
       - app2
+  auth:
+    restart: unless-stopped
+    build: ./auth
+    container_name: auth
+    env_file:
+      - ./auth/.env
+    volumes:
+      - ./auth:/app
+    depends_on:
+      - auth-db
+    networks:
+      - auth-frontend
+      - auth-backend
+    stop_grace_period: 3m
+    command: gunicorn --worker-tmp-dir /dev/shm --chdir /app "app:create_app()" -b :5000 --timeout 60 -w 4
+    user: 1000:1000
+  auth-db:
+    restart: unless-stopped
+    image: postgres:16
+    container_name: auth-db
+    env_file:
+      - ./auth/.env
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data
+    networks:
+      - auth-backend
+    stop_grace_period: 3m
   app1:
     restart: unless-stopped
     build: ./app1
@@ -191,11 +219,14 @@ services:
     command: celery --app tasks flower
     user: 1000:1000
 volumes:
+  auth-db-data:
   db1-data:
   redis1-data:
   db2-data:
   redis2-data:
 networks:
+  auth-frontend:
+  auth-backend:
   frontend1:
   backend1:
   frontend2:
