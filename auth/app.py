@@ -1,6 +1,7 @@
 import os
 from flask_restful import Api
-from flask import Flask
+from flask import Flask, jsonify
+from flask_jwt_extended import JWTManager
 from werkzeug.middleware.proxy_fix import ProxyFix
 from celery import Celery
 
