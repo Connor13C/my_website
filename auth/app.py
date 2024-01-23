@@ -1,12 +1,11 @@
 import os
-from flask import Flask, jsonify
 from flask_restful import Api
 from flask import Flask
-from flask_jwt_extended import JWTManager
 from werkzeug.middleware.proxy_fix import ProxyFix
 from celery import Celery
 
-from db import db
+from packages.database.db import db
+from packages.oauth.msgraph import msgraph
 from resources.endpoints import (
     Example,
     Projects,
@@ -82,6 +81,7 @@ def create_app():
     api.add_resource(UserLogout, '/logout')
 
     db.init_app(app)
+    msgraph.init_app(app)
     with app.app_context():
         db.create_all()
 
