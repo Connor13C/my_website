@@ -1,5 +1,5 @@
 import uuid
-from db import db
+from packages.database.db import db
 
 
 class UserModel(db.Model):
