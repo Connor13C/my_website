@@ -7,6 +7,7 @@ from celery import Celery
 
 from packages.database.db import db
 from packages.oauth.msgraph import msgraph
+from packages.oauth.github import github
 from resources.endpoints import (
     Example,
     Projects,
@@ -83,6 +84,7 @@ def create_app():
 
     db.init_app(app)
     msgraph.init_app(app)
+    github.init_app(app)
     with app.app_context():
         db.create_all()
 
