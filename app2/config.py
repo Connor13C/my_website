@@ -13,4 +13,4 @@ JWT_COOKIE_SAMESITE = 'Lax'
 JWT_BLACKLIST_ENABLED = True
 JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
 CELERY_BROKER_URL = 'redis://redis2:6379'
-CELERY_RESULT_BACKEND = 'redis://redis2:6379'
+RESULT_BACKEND = 'redis://redis2:6379'
