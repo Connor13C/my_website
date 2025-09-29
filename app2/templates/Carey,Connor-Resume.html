@@ -1,0 +1,234 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <style>
+    body{
+      font-family: Karmic, 'Amiri', sans-serif;
+      margin: 30px 0 30px 0;
+      font-size: 17px;
+      <!-- Helvetica instead of Karmic for pdf  -->
+    }
+    h1{
+      font-size: 40px;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    h2{
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    ul{
+    margin-bottom: 0;
+    }
+    li::marker{
+      font-size: 8px;
+    }
+    .citizen{
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .contact_info{
+      text-align: center;
+      color: rgb(75,75,75);
+      font-weight: bold;
+      border-bottom: 1px solid black;
+    }
+    .work-dates{
+      text-align: right;
+    }
+    @media screen and (max-width: 767px) {
+      .work-dates{
+        text-align: left;
+        .large-date{
+          font-size: 17px;
+        }
+      }
+    }
+    .entry{
+      margin: 10px;
+    }
+    .heading{
+      font-weight: bold;
+    }
+    .offset{
+      margin-left: 4px;
+    }
+    .large-heading{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .large-date{
+      font-size: 20px;
+    }
+    .website{
+      color: rgb(75,75,75);
+    }
+    .x-padding-5{
+      padding: 0 5px 0 5px;
+    }
+    </style>
+    <title>Connor's Resume</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>
+            Connor Carey
+          </h1>
+        </div>
+        <div class="col-12 citizen">
+            US Citizen
+        </div>
+      </div>
+      <div class="row justify-content-md-center contact_info">
+        <div class="col-md-3 x-padding-5">
+          connorblazecarey@gmail.com
+        </div>
+        <div class="col-md-2 x-padding-5">
+          (970)217-6592
+        </div>
+        <div class="col-md-3 x-padding-5">
+          <a class="website" href="https://github.com/Connor13C">https://github.com/Connor13C</a>
+        </div>
+        <div class="col-md-4 x-padding-5">
+          <a class="website" href="https://www.linkedin.com/in/connorbcarey/">https://www.linkedin.com/in/connorbcarey/</a>
+        </div>
+      </div>
+      <div class="row">
+	    <div class="col-md x-padding-5">
+          <h2>Technical Skills:</h2>
+          <div class="row entry">
+            <div class="col">
+              <div><span class="heading">Back End</span> - Python, Java, C#, C++, PostgreSQL, MySQL, MariaDB, MSSQL, Redis, SqlAlchemy, Celery, Pandas, Authlib</div>
+              <div><span class="heading">Front End</span> - HTML, Javascript, CSS, JQuery, ReactJS, Bootstrap, Jinja, Chartjs, FontAwesome</div>
+              <div><span class="heading">Deployment</span> -  Docker, Kubernetes, AWS, Nginx, Apache, Flask, Gunicorn, Artifactory, Jenkins, Rancher</div>
+              <div><span class="heading">Developer Tools</span> - Github, GitLab, Jira, Postman, Slack, Zenhub, Codepen, Confluence, Pycharm</div>
+              <div><span class="heading">Testing</span> - Test Driven Development, Unit Testing, Black/White Box Testing, Pytest, JUnit, NUnit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col x-padding-5">
+	      <h2>Work History:</h2>
+          <div class="row entry">
+            <div class="col-md-6">
+              <div class="large-heading">Lead Full Stack and DevOps Engineer</div>
+              <div class="heading">Information Safeguard Inc</div>
+            </div>
+            <div class="col-md-6 work-dates">
+              <div class="large-date">February 2024 - January 2025</div>
+            </div>
+            <ul>
+              <li>Lead DevOps/Full Stack contractor for team on US Bank's Cyber Risk Oversight division</li>
+              <li>Built API integrations with 3rd party services like HC Vault, AWS, and SSO with Microsoft Active Directory
+              <li>Wrote Kubernetes Certificate, ConfigMap, Deployment, Ingress, Secret, and Service yamls for cluster deployments</li>
+              <li>Used linters and scanners like SonarQube, BlackDuck, and Fortify to eliminate vulnerabilites and improve coding standards</li>
+              <li>Streamlined continuous integration and Kubernetes cluster deployments for all levels of production environments</li>
+              <li>Tech stack included Kubernetes, Docker, Rancher, Jenkins, Linux, Python, Flask, PostgreSQL, Pandas, Javascript, and HTML</li>
+            </ul>
+          </div>
+          <div class="row entry">
+            <div class="col-md-6">
+              <div class="large-heading">Full Stack Developer</div>
+              <div class="heading">Dixon Technologies LLC</div>
+            </div>
+            <div class="col-md-6 work-dates">
+              <div class="large-date">January 2022 - May 2023</div>
+            </div>
+            <ul>
+              <li>Full Stack Developer role on a small team of 2 to 3 at an Automotive startup</li>
+	          <li>Created API integrations for automated transactions with an Automotive Manufacturer and a Dealer Management Service</li>
+              <li>Created and improved the front and back end code of SAAS website</li>
+              <li>Implemented good coding practices such as documentation, testing, removing repetition, refactoring code, and modularity to significantly reduce technical debt at the startup</li>
+              <li>Tech stack included Linux, Apache, Python, Flask, MySQL, Javascript, and HTML</li>
+            </ul>
+          </div>
+          <div class="row entry">
+            <div class="col-md-6">
+              <div class="large-heading">Junior Software Developer</div>
+              <div class="heading">Reconstruction Experts Inc</div>
+            </div>
+            <div class="col-md-6 work-dates">
+              <div class="large-date">May 2019 - July 2021</div>
+            </div>
+            <ul>
+	          <li>Was the only software engineer at the company, which led to expertise in DevOps, Full Stack, and QA roles</li>
+              <li>Built a fully containerized Docker system with a Nginx server to distribute SAAS apps with OAuth 2 authentication using Microsoft Active Directory</li>
+              <li>Made mobile-friendly REST API websites with Python and Flask, using Celery to handle asynchronous time-consuming tasks</li>
+	          <li>Automated file management within internal filesystems and uploaded their backups to AWS cloud storage</li>
+              <li>Built multiple applications from scratch, including data entry for accounting and tracking of risk management for company projects</li>
+              <li>Tech stack included Linux, Nginx, Python, Flask, PostgreSQL, Docker, SqlAlchemy, Celery, Redis, Javascript, and HTML</li>
+            </ul>
+          </div>
+	    </div>
+      </div>	
+      <div class="row">
+        <div class="col-md x-padding-5">
+          <h2>Education:</h2>
+          <div class="row entry">
+            <div class="col">
+              <div class="large-heading">College:</div>
+              <div class="heading offset">Colorado State University</div>
+              <ul>
+                <li>Bachelor of Science - Computer Science</li>
+              </ul>
+            </div>
+          </div>
+          <div class="row entry">
+            <div class="col">
+              <div class="large-heading">Coding Bootcamps:</div>
+              <div class="heading offset">Udemy</div>
+              <div class="row">
+                <div class="col">
+                  <ul>
+                    <li>Modern Python 3 Bootcamp</li>
+                    <li>REST APIs with Flask and Python</li>
+                    <li>Advanced REST APIs with Flask and Python</li>
+                    <li>Python and Django Full Stack Web Developer Bootcamp</li>
+                    <li>Ultimate Pandas Bootcamp: Advanced Python Data Analysis</li>
+                    <li>Python Database Mastery: SQLAlchemy and Alembic</li>
+                    <li>Jenkins, From Zero to Hero: Become a DevOps Jenkins Master</li>
+                    <li>Modern Javascript Bootcamp Course</li>
+                    <li>Ultimate MySQL Bootcamp</li>
+                    <li>Docker and Kubernetes: The Complete Guide</li>
+                  </ul>
+                </div>
+                <div class="col">
+                  <ul>
+                    <li>Complete C# Masterclass</li>
+                    <li>Design Patterns in C# and .NET</li>
+                    <li>Ultimate AWS Certified Developer Associate</li>
+                    <li>HashiCorp Certified: Vault Associate</li>
+                    <li>Microsoft PowerApps</li>
+                    <li>Drupal Tutorial: Drupal 8</li>
+                    <li>Python REST APIs with Flask, Docker, MongoDB, and AWS DevOps</li>
+                    <li>Become a WordPress Developer</li>
+                    <li>Windows Presentation Foundation Masterclass</li>
+                    <li>Master .NET and C# Unit Testing with NUnit and Moq</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+	
