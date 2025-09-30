@@ -39,7 +39,7 @@ services:
     user: 1000:1000
   db1:
     restart: unless-stopped
-    image: postgres:16
+    image: postgres:18
     container_name: db1
     env_file:
       - ./app1/.env
@@ -123,7 +123,7 @@ services:
     user: 1000:1000
   db2:
     restart: unless-stopped
-    image: postgres:16
+    image: postgres:18
     container_name: db2
     env_file:
       - ./app1/.env
