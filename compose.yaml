@@ -35,7 +35,7 @@ services:
       - frontend1
       - backend1
     stop_grace_period: 3m
-    command: gunicorn --worker-tmp-dir /dev/shm --chdir /app "app:create_app()" -b :5000 --timeout 60 -w 4
+    command: gunicorn --worker-tmp-dir /dev/shm --chdir /app "app1.wsgi" -b :5000 --timeout 60 -w 4
     user: 1000:1000
   db1:
     restart: unless-stopped
@@ -71,7 +71,7 @@ services:
     networks:
       - backend1
     stop_grace_period: 3m
-    command: celery --app tasks worker --loglevel=info
+    command: celery --app app1 worker --loglevel=info
     user: 1000:1000
   celery-beat1:
     restart: unless-stopped
@@ -86,7 +86,7 @@ services:
     networks:
       - backend1
     stop_grace_period: 3m
-    command: celery --app tasks beat --loglevel=info
+    command: celery --app app1 beat --loglevel=info
     user: 1000:1000
   celery-flower1:
     restart: unless-stopped
@@ -103,7 +103,7 @@ services:
       - backend1
       - frontend3
     stop_grace_period: 3m
-    command: celery --app tasks flower
+    command: celery --app app1 flower
     user: 1000:1000
   app2:
     restart: unless-stopped
