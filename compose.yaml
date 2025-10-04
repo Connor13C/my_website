@@ -35,7 +35,7 @@ services:
       - frontend1
       - backend1
     stop_grace_period: 3m
-    command: gunicorn --worker-tmp-dir /dev/shm --chdir /app "app1.wsgi" -b :5000 --timeout 60 -w 4
+    command: gunicorn --worker-tmp-dir /dev/shm "app1.wsgi" -b :5000 --timeout 60 -w 4
     user: 1000:1000
   db1:
     restart: unless-stopped
@@ -119,7 +119,7 @@ services:
       - frontend2
       - backend2
     stop_grace_period: 3m
-    command: gunicorn --worker-tmp-dir /dev/shm --chdir /app "app:create_app()" -b :5000 --timeout 60 -w 4
+    command: gunicorn --worker-tmp-dir /dev/shm "app:create_app()" -b :5000 --timeout 60 -w 4
     user: 1000:1000
   db2:
     restart: unless-stopped
