@@ -35,7 +35,7 @@ services:
       - frontend1
       - backend1
     stop_grace_period: 3m
-    command: gunicorn --worker-tmp-dir /dev/shm "app1.wsgi" -b :5000 --timeout 60 -w 4
+    command: sh start.sh
     user: 1000:1000
   db1:
     restart: unless-stopped
