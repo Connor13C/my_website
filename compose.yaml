@@ -8,6 +8,7 @@ services:
       - ./proxy/website.pem:/etc/ssl/website.pem
       - ./proxy/website.key:/etc/ssl/website.key
       - ./proxy/nginx:/var/log/nginx
+      - app1-data:/var/www
     networks:
       - frontend1
       - frontend2
@@ -28,6 +29,7 @@ services:
       - ./app1/.env
     volumes:
       - ./app1:/app
+      - app1-data:/var/www
     depends_on:
       - db1
       - redis1
@@ -190,6 +192,7 @@ services:
     command: celery --app tasks flower
     user: 1000:1000
 volumes:
+  app1-data:
   db1-data:
   redis1-data:
   db2-data:
