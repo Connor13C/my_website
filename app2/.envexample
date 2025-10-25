@@ -2,4 +2,5 @@ SECRET_KEY=random_secret_key
 JWT_SECRET_KEY=random_jwt_secret_key
 CLIENT_ID=client_id_key
 CLIENT_SECRET=client_secret_key
+POSTGRES_USER=postgres
 POSTGRES_PASSWORD=random_postgres_password
