@@ -1,15 +1,8 @@
 from django.db import models
-from django.forms import model_to_dict
-from django.core.serializers.json import DjangoJSONEncoder
 from datetime import time, UTC
-import json
 
+from global_use.serializers import django_model_to_json
 
-class ExtendedEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, models.Model):
-            return model_to_dict(obj)
-        return super().default(obj)
 
 class Interviewer(models.Model):
     id = models.AutoField(primary_key=True)
@@ -33,4 +26,4 @@ class InterviewTemplate(models.Model):
         :returns: json object of InterviewTemplate
         """
         interview = InterviewTemplate.objects.get(interviewId=_id)
-        return json.loads(json.dumps(interview, cls=ExtendedEncoder))
+        return django_model_to_json(interview)
