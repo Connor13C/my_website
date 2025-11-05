@@ -1,0 +1,20 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+#body {
+    padding: 0;
+}
+
+main {
+    margin: 60px 0 0 0;
+}
+
+/* Navbar */
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{   }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
