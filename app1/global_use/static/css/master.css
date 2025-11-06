@@ -18,3 +18,27 @@ main {
 	.navbar .nav-item:hover .dropdown-menu{ display: block; }
 	.navbar .nav-item .dropdown-menu{ margin-top:0; }
 }
+
+.dropdown-menu {
+    li {
+        display: flex;
+        a {
+            display: inline;
+        }
+        &:hover,
+        &:focus {
+            color: gray;
+        }
+    }
+}
+
+.nav-item {
+    padding: 0 10px 0 10px;
+}
+
+.link-icon {
+    text-align: right;
+    i {
+        font-size: 1.5em;
+    }
+}
