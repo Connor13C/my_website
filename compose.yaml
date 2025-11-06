@@ -37,7 +37,7 @@ services:
       - frontend1
       - backend1
     stop_grace_period: 3m
-    command: gunicorn --worker-tmp-dir /dev/shm "app1.wsgi" -b :5000 --timeout 60 -w 4
+    command: gunicorn --worker-tmp-dir /dev/shm "app1.wsgi" -b :5000 --timeout 60 -w 4 --reload
     post_start:
       - command: python manage.py makemigrations
       - command: python manage.py migrate
