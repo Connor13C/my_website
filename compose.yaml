@@ -63,7 +63,7 @@ services:
       interval: 20s
       timeout: 5s
       retries: 3
-      start_period: 5s
+      start_period: 1s
   redis1:
     restart: unless-stopped
     image: redis:7
@@ -150,7 +150,7 @@ services:
       interval: 20s
       timeout: 5s
       retries: 3
-      start_period: 5s
+      start_period: 1s
   redis2:
     restart: unless-stopped
     image: redis:7
