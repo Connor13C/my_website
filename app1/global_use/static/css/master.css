@@ -19,6 +19,14 @@ main {
 	.navbar .nav-item .dropdown-menu{ margin-top:0; }
 }
 
+@media all and (max-width: 991px) {
+    .navbar .nav-item .dropdown-menu{ display: block; }
+}
+
+#navbar-1st {
+    width: 80%;
+}
+
 .dropdown-menu {
     li {
         display: flex;
@@ -34,6 +42,9 @@ main {
 
 .nav-item {
     padding: 0 10px 0 10px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .link-icon {
