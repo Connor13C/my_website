@@ -40,11 +40,19 @@ main {
     }
 }
 
+.dropdown-toggle:hover {
+    color: lightgray;
+}
+
 .nav-item {
     padding: 0 10px 0 10px;
     &:hover {
         cursor: pointer;
     }
+}
+
+.nav-link {
+    color: lightgray;
 }
 
 .link-icon {
@@ -55,5 +63,6 @@ main {
 }
 
 .navbar-icon {
+    color: white;
     font-size: 2.5em;
 }
