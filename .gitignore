@@ -3,6 +3,9 @@ Pipfile
 Pipfile.lock
 .idea/*
 nginx/
+*.csr
+*.key
+*.pem
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
