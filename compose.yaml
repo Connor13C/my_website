@@ -41,7 +41,7 @@ services:
     env_file:
       - ./app1/.env
     volumes:
-      - db1-data:/var/lib/postgresql/data
+      - db1-data:/var/lib/postgresql
     stop_grace_period: 3m
     healthcheck:
       test: pg_isready -h localhost -U $$POSTGRES_USER || exit 1
@@ -114,7 +114,7 @@ services:
     env_file:
       - ./app2/.env
     volumes:
-      - db2-data:/var/lib/postgresql/data
+      - db2-data:/var/lib/postgresql
     stop_grace_period: 3m
     healthcheck:
       test: pg_isready -h localhost -U $$POSTGRES_USER || exit 1
