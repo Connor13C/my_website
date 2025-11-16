@@ -5,8 +5,8 @@ services:
     container_name: proxy
     volumes:
       - ./proxy/prod/default.conf:/etc/nginx/conf.d/default.conf
-      - ./proxy/prod/website.pem:/etc/ssl/website.pem
-      - ./proxy/prod/website.key:/etc/ssl/website.key
+      - ./proxy/prod/domain.cert.pem:/etc/ssl/domain.cert.pem
+      - ./proxy/prod/private.key.pem:/etc/ssl/private.key.pem
       - ./proxy/nginx:/var/log/nginx
       - app1-data:/var/www
     networks:
