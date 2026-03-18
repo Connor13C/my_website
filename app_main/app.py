@@ -14,7 +14,16 @@ app.include_router(urls.router, prefix="/users")
 
 
 def remove_subdomain(value: str):
-    return value.split('.')[-1]
+    """
+    Removes the subdomains off of a url path and returns only the hostname
+    """
+    url_list = value.split('.')
+    domain = None
+    if len(url_list) == 1:
+        domain = url_list[-1]
+    elif len(url_list) > 1:
+        domain = ''.join(url_list[-2:])
+    return domain
 
 jinja2.env.globals['remove_subdomain'] = remove_subdomain
 
