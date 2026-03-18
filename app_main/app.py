@@ -22,7 +22,7 @@ def remove_subdomain(value: str):
     if len(url_list) == 1:
         domain = url_list[-1]
     elif len(url_list) > 1:
-        domain = ''.join(url_list[-2:])
+        domain = '.'.join(url_list[-2:])
     return domain
 
 jinja2.env.globals['remove_subdomain'] = remove_subdomain
