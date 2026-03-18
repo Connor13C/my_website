@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
+    <a class="navbar-brand" href="{{ request.url.scheme ~ '://www.' ~ remove_subdomain(request.url.hostname) }}">
+        <img src="" height="75" alt="Home">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav" id="navbar-1st">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle">
+                    Framework Examples
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="{{ request.url.scheme ~ '://django.' ~ remove_subdomain(request.url.hostname) }}" target="_blank">Django with Celery</a>
+                        <a class="dropdown-item link-icon" href="{{ request.url.scheme ~ '://django-flower.' ~ remove_subdomain(request.url.hostname) }}" target="_blank">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                        <a class="dropdown-item link-icon" href="https://github.com/Connor13C/my_website/tree/master/app1" target="_blank">
+                            <i class="fa fa-github" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ request.url.scheme ~ '://flask.' ~ remove_subdomain(request.url.hostname) }}" target="_blank">Flask with Celery</a>
+                        <a class="dropdown-item link-icon ms-3" href="{{ request.url.scheme ~ '://flask-flower.' ~ remove_subdomain(request.url.hostname) }}" target="_blank">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                        <a class="dropdown-item link-icon" href="https://github.com/Connor13C/my_website/tree/master/app2" target="_blank">
+                            <i class="fa fa-github" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ request.url.scheme ~ '://fastapi.' ~ remove_subdomain(request.url.hostname) }}" target="_blank">FastAPI</a>
+                        <a class="dropdown-item link-icon" href="https://github.com/Connor13C/my_website/tree/master/app3" target="_blank">
+                            <i class="fa fa-github" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ request.url.scheme ~ '://www.' ~ remove_subdomain(request.url.hostname) ~ '/docs' }}" target="_blank">
+                    Site Docs
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('resume') }}">
+                    Resume
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/Connor13C" target="_blank">
+                    <i class="fa fa-github navbar-icon" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/connorbcarey/" target="_blank">
+                    <i class="fa fa-linkedin-square navbar-icon" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

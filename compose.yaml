@@ -11,11 +11,22 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
+      - app_main
       - app1
       - app2
       - app3
       - celery-flower1
       - celery-flower2
+  app_main:
+    restart: unless-stopped
+    build: ./app_main
+    container_name: app_main
+    env_file:
+      - ./app_main/.env
+    volumes:
+      - ./app_main:/app
+    stop_grace_period: 3m
+    command: fastapi dev app.py --host 0.0.0.0 --port 5000
   app1:
     restart: unless-stopped
     build: ./app1

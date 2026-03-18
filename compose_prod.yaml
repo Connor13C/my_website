@@ -10,21 +10,35 @@ services:
       - ./proxy/nginx:/var/log/nginx
       - app1-data:/var/www
     networks:
-      - frontend1
-      - frontend2
-      - frontend3
-      - frontend4
-      - frontend5
+      - proxy_to_app_main
+      - proxy_to_app1
+      - proxy_to_celery-flower1
+      - proxy_to_app2
+      - proxy_to_celery-flower2
+      - proxy_to_app3
     stop_grace_period: 3m
     ports:
       - "80:80"
       - "443:443"
     depends_on:
+      - app_main
       - app1
       - app2
       - app3
       - celery-flower1
       - celery-flower2
+  app_main:
+    restart: unless-stopped
+    build: ./app_main
+    container_name: app_main
+    env_file:
+      - ./app_main/.env
+    volumes:
+      - ./app_main:/app
+    networks:
+      - proxy_to_app_main
+    stop_grace_period: 3m
+    command: fastapi run app.py --host 0.0.0.0 --port 5000
   app1:
     restart: unless-stopped
     build: ./app1
@@ -38,8 +52,8 @@ services:
       db1:
         condition: service_healthy
     networks:
-      - frontend1
-      - backend1
+      - proxy_to_app1
+      - services_for_app1
     stop_grace_period: 3m
     command: gunicorn --worker-tmp-dir /dev/shm "app1.wsgi" -b :5000 --timeout 60 -w 4
     post_start:
@@ -56,7 +70,7 @@ services:
     volumes:
       - db1-data:/var/lib/postgresql
     networks:
-      - backend1
+      - services_for_app1
     stop_grace_period: 3m
     healthcheck:
       test: pg_isready -h localhost -U $$POSTGRES_USER || exit 1
@@ -71,7 +85,7 @@ services:
     volumes:
       - redis1-data:/data
     networks:
-      - backend1
+      - services_for_app1
     stop_grace_period: 3m
   celery-worker1:
     restart: unless-stopped
@@ -85,7 +99,7 @@ services:
       - app1
       - redis1
     networks:
-      - backend1
+      - services_for_app1
     stop_grace_period: 3m
     command: celery --app app1 worker --loglevel=info
   celery-beat1:
@@ -99,7 +113,7 @@ services:
     depends_on:
       - celery-worker1
     networks:
-      - backend1
+      - services_for_app1
     stop_grace_period: 3m
     command: celery --app app1 beat --loglevel=info
   celery-flower1:
@@ -114,8 +128,8 @@ services:
       - celery-worker1
       - celery-beat1
     networks:
-      - backend1
-      - frontend3
+      - proxy_to_celery-flower1
+      - services_for_app1
     stop_grace_period: 3m
     command: celery --app app1 flower
   app2:
@@ -130,8 +144,8 @@ services:
       db2:
         condition: service_healthy
     networks:
-      - frontend2
-      - backend2
+      - proxy_to_app2
+      - services_for_app2
     stop_grace_period: 3m
     command: gunicorn --worker-tmp-dir /dev/shm "app:create_app()" -b :5000 --timeout 60 -w 4
   db2:
@@ -143,7 +157,7 @@ services:
     volumes:
       - db2-data:/var/lib/postgresql
     networks:
-      - backend2
+      - services_for_app2
     stop_grace_period: 3m
     healthcheck:
       test: pg_isready -h localhost -U $$POSTGRES_USER || exit 1
@@ -158,7 +172,7 @@ services:
     volumes:
       - redis2-data:/data
     networks:
-      - backend2
+      - services_for_app2
     stop_grace_period: 3m
   celery-worker2:
     restart: unless-stopped
@@ -172,7 +186,7 @@ services:
       - app2
       - redis2
     networks:
-      - backend2
+      - services_for_app2
     stop_grace_period: 3m
     command: celery --app tasks worker --loglevel=info
   celery-beat2:
@@ -186,7 +200,7 @@ services:
     depends_on:
       - celery-worker2
     networks:
-      - backend2
+      - services_for_app2
     stop_grace_period: 3m
     command: celery --app tasks beat --loglevel=info
   celery-flower2:
@@ -201,8 +215,8 @@ services:
       - celery-worker2
       - celery-beat2
     networks:
-      - backend2
-      - frontend4
+      - proxy_to_celery-flower2
+      - services_for_app2
     stop_grace_period: 3m
     command: celery --app tasks flower
   app3:
@@ -214,7 +228,7 @@ services:
     volumes:
       - ./app3:/app
     networks:
-      - frontend5
+      - proxy_to_app3
     stop_grace_period: 3m
     command: fastapi run app.py --host 0.0.0.0 --port 5000
 volumes:
@@ -224,10 +238,11 @@ volumes:
   db2-data:
   redis2-data:
 networks:
-  frontend1:
-  backend1:
-  frontend2:
-  backend2:
-  frontend3:
-  frontend4:
-  frontend5:
+  proxy_to_app_main:
+  proxy_to_app1:
+  proxy_to_celery-flower1:
+  services_for_app1:
+  proxy_to_app2:
+  proxy_to_celery-flower2:
+  services_for_app2:
+  proxy_to_app3:
