@@ -187,7 +187,7 @@ services:
     volumes:
       - ./app3:/app
     stop_grace_period: 3m
-    command: fastapi dev app.py --host 0.0.0.0 --port 5000
+    command: uvicorn app:create_app --factory --reload --host 0.0.0.0 --port 5000 --workers 1
 volumes:
   db1-data:
   redis1-data:
