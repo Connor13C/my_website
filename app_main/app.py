@@ -27,10 +27,10 @@ jinja2.env.globals['remove_subdomain'] = remove_subdomain
 
 @app.get("/", response_class=HTMLResponse, name='index')
 async def index(request: Request):
-    return jinja2.TemplateResponse("index.html", {'request': request})
+    return jinja2.TemplateResponse(request=request, name="index.html")
 
 
 @app.get("/resume", response_class=HTMLResponse)
 async def resume(request:Request):
-    return jinja2.TemplateResponse("Carey,Connor-Resume.html", {'request': request})
+    return jinja2.TemplateResponse(request=request, name="Carey,Connor-Resume.html")
 
