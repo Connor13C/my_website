@@ -1,2 +1,2 @@
-fastapi[standard]
-jinja2
+fastapi[standard]==0.*
+jinja2==3.*
