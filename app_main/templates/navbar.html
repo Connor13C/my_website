@@ -31,7 +31,10 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="{{ request.url.scheme ~ '://fastapi.' ~ remove_subdomain(request.url.hostname) }}" target="_blank">FastAPI</a>
+                        <a class="dropdown-item" href="{{ request.url.scheme ~ '://fastapi.' ~ remove_subdomain(request.url.hostname) }}" target="_blank">FastAPI with Celery</a>
+                        <a class="dropdown-item link-icon" href="{{ request.url.scheme ~ '://fastapi-flower.' ~ remove_subdomain(request.url.hostname) }}" target="_blank">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
                         <a class="dropdown-item link-icon" href="https://github.com/Connor13C/my_website/tree/master/app3" target="_blank">
                             <i class="fa fa-github" aria-hidden="true"></i>
                         </a>
