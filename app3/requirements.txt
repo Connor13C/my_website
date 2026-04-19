@@ -5,3 +5,4 @@ celery==5.*
 redis==5.*
 flower==2.*
 alembic==1.*
+pydantic==2.*
