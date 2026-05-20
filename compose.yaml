@@ -188,8 +188,70 @@ services:
       - ./app3:/app
     stop_grace_period: 3m
     command: uvicorn app:create_app --factory --reload --host 0.0.0.0 --port 5000 --workers 1
+  db3:
+    restart: unless-stopped
+    image: postgres:18
+    container_name: db3
+    env_file:
+      - ./app3/.env
+    volumes:
+      - db3-data:/var/lib/postgresql
+    stop_grace_period: 3m
+    healthcheck:
+      test: pg_isready -h localhost -U $$POSTGRES_USER || exit 1
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+  redis3:
+    restart: unless-stopped
+    image: redis:7
+    container_name: redis3
+    volumes:
+      - redis3-data:/data
+    stop_grace_period: 3m
+  celery-worker3:
+    restart: unless-stopped
+    build: ./app3
+    container_name: celery-worker3
+    env_file:
+      - ./app3/.env
+    volumes:
+      - ./app3:/app
+    depends_on:
+      - app3
+      - redis3
+    stop_grace_period: 3m
+    command: celery --app tasks worker --loglevel=info
+  celery-beat3:
+    restart: unless-stopped
+    build: ./app3
+    container_name: celery-beat3
+    env_file:
+      - ./app3/.env
+    volumes:
+      - ./app3:/app
+    depends_on:
+      - celery-worker3
+    stop_grace_period: 3m
+    command: celery --app tasks beat --loglevel=info
+  celery-flower3:
+    restart: unless-stopped
+    build: ./app3
+    container_name: celery-flower3
+    env_file:
+      - ./app3/.env
+    volumes:
+      - ./app3:/app
+    depends_on:
+      - celery-worker3
+      - celery-beat3
+    stop_grace_period: 3m
+    command: celery --app tasks flower
 volumes:
   db1-data:
   redis1-data:
   db2-data:
   redis2-data:
+  db3-data:
+  redis3-data:
