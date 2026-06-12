@@ -1,4 +1,4 @@
-from vendor.sqlalchemy.db import Base
+from vendor.sqlalchemy.db import Base, db
 
 
 class UserModel(Base):
