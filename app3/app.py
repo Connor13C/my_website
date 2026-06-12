@@ -39,5 +39,6 @@ def create_celery():
     #             return self.run(*args, **kwargs)
     #
     # celery.Task = ContextTask
-    celery.autodiscover_tasks([entry.name for entry in os.scandir() if entry.is_dir()])
+    celery_task_dirs = ['users']
+    celery.autodiscover_tasks(celery_task_dirs)
     return celery
