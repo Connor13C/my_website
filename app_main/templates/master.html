@@ -10,18 +10,16 @@
     <link rel="stylesheet" type="text/css" href="/static/css/master.css">
     <script src="static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-    <div class="container-fluid" id="body">
-        <header>
-        {% include "navbar.html" %}
-        </header>
-        <main>
-            {% block content %}
-            {% endblock content %}
-        </main>
-        <footer>
+<body class="container-fluid">
+    <header>
+    {% include "navbar.html" %}
+    </header>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <footer>
 
-        </footer>
-    </div>
+    </footer>
 </body>
 </html>
