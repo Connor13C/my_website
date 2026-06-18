@@ -1,0 +1,13 @@
+.hello {
+    font-size: 25px;
+}
+
+.hello_text {
+    font-size: 20px;
+}
+
+.info {
+    padding: 0;
+    border: black 2px solid;
+    background-color: rgb(0,0,0,.5);
+}

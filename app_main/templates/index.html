@@ -1,8 +1,17 @@
 {% extends 'master.html' %}
 
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+{% endblock %}
+
 {% block content %}
-<h1>
-    This website is under construction in an early phase and will be updated in my free time until I land a job or
-    create my own business, whichever comes first.
-</h1>
+<div class="row justify-content-center">
+    <div class="col-md-1 info">
+        <img src="/static/images/me.jpg" alt="Connor" class="img-fluid">
+    </div>
+    <div class="col-md-3 info">
+        <div class="hello">Hi, I'm Connor</div>
+        <div class="hello_text">Welcome to my portfolio and demo website. This website is here to demonstrate my practical knowledge and so nothing here was created by AI. Feel free to have a look around. This website is still under early construction and will be updated with new features from time to time.</div>
+    </div>
+</div>
 {% endblock %}
