@@ -17,6 +17,7 @@ services:
       - app3
       - celery-flower1
       - celery-flower2
+      - celery-flower3
   app_main:
     restart: unless-stopped
     build: ./app_main
