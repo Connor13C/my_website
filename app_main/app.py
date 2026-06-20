@@ -32,5 +32,5 @@ async def index(request: Request):
 
 @app.get("/resume", response_class=HTMLResponse)
 async def resume(request:Request):
-    return jinja2.TemplateResponse(request=request, name="Carey,Connor-Resume.html")
+    return jinja2.TemplateResponse(request=request, name="resume.html")
 
