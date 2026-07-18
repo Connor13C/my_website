@@ -1,4 +1,20 @@
 services:
+  fail2ban:
+    restart: unless-stopped
+    image: linuxserver/fail2ban:1.1.0
+    container_name: fail2ban
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./fail2ban/config:/config
+      - /var/log:/var/log:ro
+      - ./proxy/nginx:/remotelogs/nginx:ro #optional
   proxy:
     restart: unless-stopped
     image: nginx:1.29
