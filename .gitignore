@@ -6,6 +6,9 @@ nginx/
 *.csr
 *.key
 *.pem
+fail2ban/
+!fail2ban/config/fail2ban/*.local
+!fail2ban/config/fail2ban/jail.d/*.local
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
