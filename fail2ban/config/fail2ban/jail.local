@@ -1,0 +1,8 @@
+[DEFAULT]
+bantime = 1h
+
+[nginx-http-auth]
+# configuration inherits from jail.conf
+enabled = true
+chain   = DOCKER-USER
+action  = %(known/action)s
