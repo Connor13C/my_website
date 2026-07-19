@@ -1,9 +1,29 @@
 [DEFAULT]
-bantime = 1h
+bantime  = 1h
+findtime = 10m
+maxretry = 5
+ignoreip = 127.0.0.1/8 ::1
 
 [nginx-http-auth]
 # configuration inherits from jail.conf
 enabled = true
 chain   = DOCKER-USER
-filter = nginx-http-auth
-action = iptables[name=nginx, port=http, protocol=tcp]
+filter  = nginx-http-auth
+action  = iptables-multiport[name=nginx, port="http,https", protocol=tcp]
+
+[nginx-limit-req]
+# configuration inherits from jail.d/nginx-limit-req.conf
+enabled  = true
+chain    = DOCKER-USER
+filter   = nginx-limit-req
+action   = iptables-multiport[name=nginx, port="http,https", protocol=tcp]
+maxretry = 10
+
+[sshd]
+# configuration inherits from jail.conf
+enabled  = true
+chain    = INPUT
+filter   = sshd
+action   = iptables-multiport
+maxretry = 3
+
