@@ -23,6 +23,7 @@ services:
       - ./proxy/prod/default.conf:/etc/nginx/conf.d/default.conf
       - ./proxy/prod/domain.cert.pem:/etc/ssl/domain.cert.pem
       - ./proxy/prod/private.key.pem:/etc/ssl/private.key.pem
+      - ./proxy/prod/robots.txt:/var/www/robots.txt
       - ./proxy/nginx:/var/log/nginx
       - app1-data:/var/www
     networks:
