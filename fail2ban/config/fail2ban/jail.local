@@ -5,5 +5,5 @@ bantime = 1h
 # configuration inherits from jail.conf
 enabled = true
 chain   = DOCKER-USER
-filter = nginx-auth
+filter = nginx-http-auth
 action = iptables[name=nginx, port=http, protocol=tcp]
