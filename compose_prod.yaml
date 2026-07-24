@@ -21,8 +21,8 @@ services:
     container_name: proxy
     volumes:
       - ./proxy/prod/default.conf:/etc/nginx/conf.d/default.conf
-      - ./proxy/prod/security-deny.conf:/etc/nginx/security-deny.conf
-      - ./proxy/prod/ssl-config.conf:/etc/nginx/ssl-config.conf
+      - ./proxy/prod/server-deny.conf:/etc/nginx/server-deny.conf
+      - ./proxy/prod/server-ssl-config.conf:/etc/nginx/server-ssl-config.conf
       - ./proxy/prod/domain.cert.pem:/etc/ssl/domain.cert.pem
       - ./proxy/prod/private.key.pem:/etc/ssl/private.key.pem
       - ./proxy/prod/robots.txt:/var/www/robots.txt
