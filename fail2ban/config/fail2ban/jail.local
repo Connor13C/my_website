@@ -9,17 +9,27 @@ ignoreip          = 127.0.0.1/8 ::1
 dbpurgeage        = 7d
 action            = iptables-multiport[blocktype=DROP]
 
-[nginx-http-auth]
-# configuration inherits from jail.conf
+[nginx-bad-request]
 enabled = true
 chain   = DOCKER-USER
-filter  = nginx-http-auth
 
-[nginx-limit-req]
-# configuration inherits from jail.d/nginx-limit-req.conf
+[nginx-forbidden]
 enabled  = true
 chain    = DOCKER-USER
-filter   = nginx-limit-req
+maxretry = 3
+
+[nginx-http-auth]
+enabled = true
+chain   = DOCKER-USER
+
+[nginx-limit-req]
+enabled  = true
+chain    = DOCKER-USER
+maxretry = 10
+
+[nginx-unauthorized]
+enabled  = true
+chain    = DOCKER-USER
 maxretry = 10
 
 [recidive]
@@ -27,12 +37,9 @@ enabled  = true
 chain    = DOCKER-USER
 bantime  = 1w
 findtime = 1d
-maxretry = 5
 
 [sshd]
-# configuration inherits from jail.conf
 enabled  = true
 chain    = INPUT
-filter   = sshd
 maxretry = 3
 bantime = 6h
