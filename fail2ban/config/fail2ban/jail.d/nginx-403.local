@@ -1,0 +1,7 @@
+# Custom Fail2Ban jail configuration for nginx 403 in access logs
+
+[nginx-403]
+
+enabled  = false
+port     = http,https
+logpath  = %(nginx_access_log)s
