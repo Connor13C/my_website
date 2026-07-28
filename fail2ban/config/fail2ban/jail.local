@@ -9,6 +9,11 @@ ignoreip          = 127.0.0.1/8 ::1
 dbpurgeage        = 7d
 action            = iptables-multiport[blocktype=DROP]
 
+[nginx-403]
+enabled  = true
+chain    = DOCKER-USER
+maxretry = 3
+
 [nginx-bad-request]
 enabled = true
 chain   = DOCKER-USER
