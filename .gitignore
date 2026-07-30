@@ -10,8 +10,12 @@ fail2ban/config/log/*
 fail2ban/config/fail2ban/action.d/*.conf
 fail2ban/config/fail2ban/filter.d/*.conf
 !fail2ban/config/fail2ban/filter.d/nginx-403.conf
+!fail2ban/config/fail2ban/filter.d/nginx-404.conf
+!fail2ban/config/fail2ban/filter.d/nginx-405.conf
 fail2ban/config/fail2ban/jail.d/*.conf
 !fail2ban/config/fail2ban/jail.d/nginx-403.conf
+!fail2ban/config/fail2ban/jail.d/nginx-404.conf
+!fail2ban/config/fail2ban/jail.d/nginx-405.conf
 fail2ban/config/fail2ban/*.conf
 fail2ban/config/fail2ban/*.sqlite3
 

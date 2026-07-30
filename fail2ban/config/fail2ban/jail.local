@@ -10,41 +10,79 @@ dbpurgeage        = 7d
 action            = iptables-multiport[blocktype=DROP]
 
 [nginx-403]
+# Access logs: 403 error
 enabled  = true
 chain    = DOCKER-USER
 maxretry = 3
 
-[nginx-bad-request]
+[nginx-404]
+# Access logs: 404 error
+enabled  = true
+chain    = DOCKER-USER
+maxretry = 10
+
+[nginx-405]
+# Access logs: 405 error
+enabled  = true
+chain    = DOCKER-USER
+maxretry = 3
+
+[nginx-418]
+# Access logs: 418 error
 enabled = true
 chain   = DOCKER-USER
 
+[nginx-bad-request]
+# Access logs: 400 error
+enabled  = true
+chain    = DOCKER-USER
+
+[nginx-badbots]
+# Access logs: known bad user agents
+enabled  = true
+chain    = DOCKER-USER
+maxretry = 1
+
+[nginx-botsearch]
+# Error logs: 404 error
+enabled  = true
+chain    = DOCKER-USER
+maxretry = 10
+
 [nginx-forbidden]
+# Error logs: nginx deny and 403 seems to be newer and more broad catch than nginx-deny
 enabled  = true
 chain    = DOCKER-USER
 maxretry = 3
 
 [nginx-http-auth]
-enabled = true
-chain   = DOCKER-USER
+# Error logs: ban people checking for TLS_FALLBACK_SCSV repeatedly
+enabled  = true
+chain    = DOCKER-USER
+maxretry = 3
 
 [nginx-limit-req]
+# Error logs: exceeding nginx limit_req zones 429 error
 enabled  = true
 chain    = DOCKER-USER
-maxretry = 10
+maxretry = 3
 
 [nginx-unauthorized]
+# Access logs: 401 error
 enabled  = true
 chain    = DOCKER-USER
-maxretry = 10
 
 [recidive]
+# Fail2ban logs repeat offenders
 enabled  = true
 chain    = DOCKER-USER
 bantime  = 1w
 findtime = 1d
+maxretry = 2
 
 [sshd]
+# Port 22 logs on host machine for failed login attempts
 enabled  = true
 chain    = INPUT
 maxretry = 3
-bantime = 6h
+bantime  = 6h
