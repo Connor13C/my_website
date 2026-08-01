@@ -6,8 +6,9 @@ from fastapi import FastAPI
 from users import urls
 
 def create_app() -> FastAPI:
+    """Configures and creates FastAPI application. Includes ProxyFix expecting this to be inside a
+    reverse proxy setup."""
     app = FastAPI()
-
     app.include_router(urls.router, prefix="/users")
 
 
