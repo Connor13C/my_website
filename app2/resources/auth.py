@@ -1,7 +1,7 @@
 from hmac import compare_digest
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required, get_jwt
-from models.db import UserModel
+from models.user import UserModel
 from blacklist import BLACKLIST
 
 
