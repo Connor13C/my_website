@@ -1,6 +1,6 @@
 import re
 
-from models.db import ProjectModel
+from models.project import ProjectModel
 
 
 def sanitize_input(_input):
