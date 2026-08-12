@@ -1,22 +1,32 @@
 from hmac import compare_digest
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required, get_jwt
+
+from input_handling import sanitize_input
+from models.auth import JwtBlocklist
+from models.parser import Parser
 from models.user import UserModel
-from blacklist import BLACKLIST
 
 
 class UserRegister(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('username', type=str, required=True, help='This field cannot be blank')
-    parser.add_argument('password', type=str, required=True, help='This field cannot be blank')
-
-    @staticmethod
-    def post():
-        data = UserRegister.parser.parse_args()
+    """User registration endpoint for url /register not secure for demo only"""
+    parser = Parser()
+    parser.required_fields('username', 'password')
+    @classmethod
+    def post(cls):
+        """Post endpoint for registering users into the database.
+        Takes params username and password to put into database. Usernames
+        cannot be duplicated and will return json message and 400 error if tried.
+        On successful user creation will return json message and 201 code"""
+        req = cls.parser.parse_args()
+        data = {
+            'username': sanitize_input(req['username']),
+            'password': sanitize_input(req['password'])
+        }
         if UserModel.find_by_username(data['username']):
             return {'message': f'User with name {data["username"]} already exists'}, 400
         UserModel(**data).save_to_db()
-        return {'message': 'User created successfully'}, 201
+        return data, 201
 
 
 class User(Resource):
@@ -35,17 +45,17 @@ class User(Resource):
 
 
 class UserLogin(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('username', type=str, required=True, help='This field cannot be blank')
-    parser.add_argument('password', type=str, required=True, help='This field cannot be blank')
-
+    parser = Parser()
+    parser.required_fields('username', 'password')
     @classmethod
     def post(cls):
-        data = cls.parser.parse_args()
-        user = UserModel.find_by_username(data['username'])
-        if user and safe_str_cmp(user.password, data['password']):
-            access_token = create_access_token(identity=user.id, fresh=True)
-            refresh_token = create_refresh_token(user.id)
+        req = cls.parser.parse_args()
+        username = sanitize_input(req['username'])
+        password = sanitize_input(req['username'])
+        user = UserModel.find_by_username(username)
+        if user and safe_str_cmp(user.password, password):
+            access_token = create_access_token(identity=str(user.id), fresh=True)
+            refresh_token = create_refresh_token(str(user.id))
             return {'access_token': access_token, 'refresh_token': refresh_token}
         return {'message': 'Invalid credentials'}, 401
 
@@ -54,7 +64,7 @@ class UserLogout(Resource):
     @jwt_required
     def post(self):
         jti = get_jwt()['jti']
-        BLACKLIST.add(jti)
+        JwtBlocklist(id=jti).save_to_db()
         return {'message': 'User successfully logged out.'}
 
 

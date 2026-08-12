@@ -1,7 +1,5 @@
 import re
 
-from models.project import ProjectModel
-
 
 def sanitize_input(_input):
     """Removes any potentially unsafe characters from string that are sent from outside the server."""
@@ -21,7 +19,3 @@ def valid_date(date: str) -> bool:
     return False
 
 
-def valid_project(project_id: int) -> ProjectModel:
-    """Checks to see if a Project matching that id is in the database."""
-    if project_id:
-        return ProjectModel.get_by_project_id(project_id)

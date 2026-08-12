@@ -4,7 +4,6 @@ from celery import chain
 from celery.schedules import crontab
 
 from app import create_celery
-from models.project import ProjectModel, CommentModel
 from input_handling import sanitize_input
 
 
