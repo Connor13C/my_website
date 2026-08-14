@@ -26,7 +26,7 @@ class UserRegister(Resource):
         if UserModel.find_by_username(data['username']):
             return {'message': f'User with name {data["username"]} already exists'}, 400
         UserModel(**data).save_to_db()
-        return data, 201
+        return {'message': f'User with name {data["username"]} created successfully'}, 201
 
 
 class User(Resource):
@@ -51,7 +51,7 @@ class UserLogin(Resource):
     def post(cls):
         req = cls.parser.parse_args()
         username = sanitize_input(req['username'])
-        password = sanitize_input(req['username'])
+        password = sanitize_input(req['password'])
         user = UserModel.find_by_username(username)
         if user and safe_str_cmp(user.password, password):
             access_token = create_access_token(identity=str(user.id), fresh=True)
