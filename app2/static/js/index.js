@@ -23,8 +23,11 @@ $('#login').click(function() {
 		.then(function(json) {
 			jwt = json;
 			if (jwt['access_token']) {
-				$('#login_field').hide();
+				$('form').hide();
 				$('#choice').show();
+			}
+			else {
+				parse_requests([json])
 			}
 		})
 		.catch(function(error) {
@@ -51,6 +54,9 @@ $('#register').click(function() {
 		})
 		.then(function(response) {
 			return response.json();
+		})
+		.then(function(json) {
+			parse_requests([json])
 		})
 		.catch(function(error) {
 			console.log('Request failed', error);
