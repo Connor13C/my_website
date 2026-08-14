@@ -23,8 +23,11 @@ $('#login').click(function() {
 		.then(function(json) {
 			jwt = json;
 			if (jwt['access_token']) {
-				$('#login_field').hide();
+				$('form').hide();
 				$('#choice').show();
+			}
+			else {
+				parse_requests([json])
 			}
 		})
 		.catch(function(error) {
@@ -34,7 +37,7 @@ $('#login').click(function() {
 });
 
 /**
- * When log in button is pressed username and password fields are send to
+ * When register button is pressed username and password fields are send to
  * database to verify authorized user. If verified user is presented with
  * navigation menu.
  */
@@ -51,6 +54,9 @@ $('#register').click(function() {
 		})
 		.then(function(response) {
 			return response.json();
+		})
+		.then(function(json) {
+			parse_requests([json])
 		})
 		.catch(function(error) {
 			console.log('Request failed', error);
@@ -322,14 +328,20 @@ function populate_clients() {
  * @param client_requests json object of client requests
  */
 function parse_requests(client_requests) {
-	$('p').remove();
-	$.each(client_requests, function(k, v) {
-		$.each(v, function(key, value) {
-			$('#results')
-				.append($("<p></p>")
-					.text(key + ': ' + value));
+	$('#results').empty();
+	if (!Array.isArray(client_requests) || !client_requests.length) {
+  		// array does not exist, is not an array, or is empty
+  		// ⇒ do not attempt to process array
+		$('#results').append($("<p></p>").text('message: No Results'))
+	}
+	else {
+		$.each(client_requests, function (k, v) {
+			$.each(v, function (key, value) {
+				$('#results')
+					.append($("<p></p>")
+						.text(key + ': ' + value));
+			});
 		});
-	});
-	$('form').hide();
+	}
 	$('#results').show();
 }
