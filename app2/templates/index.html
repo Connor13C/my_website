@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
   <title>Feature Builder</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 </head>
 <body>
 <h1>Feature Requester</h1>
@@ -90,10 +90,10 @@
     <form id="results"></form>
     </div>
   </div>
-  <script type=text/javascript src="{{url_for('static', filename='jquery.min.js') }}"></script>
-  <script type=text/javascript src="{{url_for('static', filename='popper.min.js') }}"></script>
-  <script type=text/javascript src="{{url_for('static', filename='bootstrap.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='landing.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='vendor/popper/popper.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='vendor/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
 </body>
 
 </html>
